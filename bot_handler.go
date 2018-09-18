@@ -28,5 +28,5 @@ func botHandler(w http.ResponseWriter, r *http.Request) {
 	//	fmt.Fprint(w, err)
 	//}
 
-	fmt.Fprintf(w, "%+v", body)
+	fmt.Fprint(w, body)
 }
