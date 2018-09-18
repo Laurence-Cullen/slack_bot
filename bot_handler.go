@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -12,8 +13,8 @@ func main() {
 }
 
 func botHandler(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm() // Parses the request body
-	challenge := r.PostForm.Get("challenge")
+	body, _ := ioutil.ReadAll(r.Body)
+	//challenge := r.PostForm.Get("challenge")
 	//w.WriteHeader(http.StatusOK)
 	//w.Header().Add("Content-Type", "text/plain")
 	//fmt.Fprint(w, challenge)
@@ -27,5 +28,5 @@ func botHandler(w http.ResponseWriter, r *http.Request) {
 	//	fmt.Fprint(w, err)
 	//}
 
-	fmt.Fprintf(w, "%+v", challenge)
+	fmt.Fprintf(w, "%+v", body)
 }
