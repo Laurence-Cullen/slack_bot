@@ -16,7 +16,10 @@ func botHandler(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm() // Parses the request body
 	challenge := r.PostForm.Get("challenge")
-	w.WriteHeader(http.StatusOK)
+	//w.WriteHeader(http.StatusOK)
 	w.Header().Add("Content-Type", "text/plain")
 	fmt.Fprint(w, challenge)
+
+	fmt.Fprint(w, "\nwabalabadubdub???")
+
 }
