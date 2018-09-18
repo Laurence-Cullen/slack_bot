@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/http/httputil"
 )
 
 func main() {
@@ -14,7 +13,7 @@ func main() {
 
 func botHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm() // Parses the request body
-	//challenge := r.PostForm.Get("challenge")
+	challenge := r.PostForm.Get("challenge")
 	//w.WriteHeader(http.StatusOK)
 	//w.Header().Add("Content-Type", "text/plain")
 	//fmt.Fprint(w, challenge)
@@ -23,9 +22,10 @@ func botHandler(w http.ResponseWriter, r *http.Request) {
 
 
 	// Save a copy of this request for debugging.
-	requestDump, err := httputil.DumpRequest(r, true)
-	if err != nil {
-		fmt.Fprint(w, err)
-	}
-	fmt.Fprint(w, string(requestDump))
+	//requestDump, err := httputil.DumpRequest(r, true)
+	//if err != nil {
+	//	fmt.Fprint(w, err)
+	//}
+
+	fmt.Fprintf(w, "%+v", challenge)
 }
