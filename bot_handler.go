@@ -30,3 +30,12 @@ func botHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprint(w, string(body))
 }
+
+type Event struct {
+	Type string
+	User string
+	Text string
+	Ts float64
+	Channel string
+	EventTs int `json:"event_ts"`
+}
