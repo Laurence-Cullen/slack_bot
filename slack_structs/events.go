@@ -9,7 +9,7 @@ type Event struct {
 	EventTs string `json:"event_ts"`
 }
 
-type EventPacket struct {
+type EventWrapper struct {
 	Token string
 	TeamId string `json:"team_id"`
 	ApiAppId string `json:"api_app_id"`

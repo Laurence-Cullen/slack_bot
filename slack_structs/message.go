@@ -1,7 +1,8 @@
 package slack_structs
 
-type MessagePacket struct {
+type MessageWrapper struct {
 	Ok bool
+	Token string
 	Channel string
 	Ts string
 	Message Message
