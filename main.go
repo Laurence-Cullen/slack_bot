@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"slack_bot/secrets"
 	"slack_bot/slack_structs"
 )
 
@@ -42,6 +43,7 @@ func messageBuilder(eventPacket *slack_structs.EventWrapper) slack_structs.Messa
 	// was mentioned in the channel it was mentioned
 	message := slack_structs.Message{Text: eventPacket.Event.Text, Ts: eventPacket.Event.Ts}
 	messageWrapper := slack_structs.MessageWrapper{
+		Token: secrets.BotToken,
 		Ok: true,
 		Ts: eventPacket.Event.Ts,
 		Message: message,

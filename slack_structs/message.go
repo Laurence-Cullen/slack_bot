@@ -1,25 +1,25 @@
 package slack_structs
 
 type MessageWrapper struct {
-	Ok bool
-	Token string
-	Channel string
-	Ts string
-	Message Message
+	Ok bool `json:"ok"`
+	Token string `json:"token"`
+	Channel string `json:"channel"`
+	Ts string `json:"ts"`
+	Message Message `json:"message"`
 }
 
 type Message struct {
-	Text string
-	Username string
+	Text string `json:"text"`
+	Username string `json:"username"`
 	BotId string `json:"bot_id"`
-	Attachments []Attachment
-	Type string
-	Subtype string
-	Ts string
+	Attachments []Attachment `json:"attachments"`
+	Type string `json:"type"`
+	Subtype string `json:"subtype"`
+	Ts string `json:"ts"`
 }
 
 type Attachment struct {
-	Text string
-	Id int
-	Fallback string
+	Text string `json:"text"`
+	Id int `json:"id"`
+	Fallback string `json:"fallback"`
 }
