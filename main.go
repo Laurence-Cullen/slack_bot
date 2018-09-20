@@ -18,13 +18,13 @@ func main() {
 func botHandler(w http.ResponseWriter, r *http.Request) {
 	body, _ := ioutil.ReadAll(r.Body)
 
-	var eventPacket slack_structs.EventWrapper
-	if err := json.Unmarshal(body, &eventPacket); err != nil {
+	var eventWrapper slack_structs.EventWrapper
+	if err := json.Unmarshal(body, &eventWrapper); err != nil {
 		fmt.Fprintf(w, "JSON unmarshalling failed: %s", err)
 	}
 
 	// constructing message to return
-	messageWrapper := messageBuilder(&eventPacket)
+	messageWrapper := messageBuilder(&eventWrapper)
 	marshaledMessage, err := json.Marshal(messageWrapper)
 
 	if err != nil {
@@ -33,21 +33,23 @@ func botHandler(w http.ResponseWriter, r *http.Request) {
 
 	// writing message
 	fmt.Fprint(w, string(marshaledMessage))
-
-	// writing OK status
-	w.WriteHeader(http.StatusOK)
 }
 
-func messageBuilder(eventPacket *slack_structs.EventWrapper) slack_structs.MessageWrapper {
-	// simple reflection message builder to echo out message in which bot
-	// was mentioned in the channel it was mentioned
-	message := slack_structs.Message{Text: eventPacket.Event.Text, Ts: eventPacket.Event.Ts}
+// simple reflection message builder to echo out message in which bot
+// was mentioned in the channel it was mentioned
+func messageBuilder(eventWrapper *slack_structs.EventWrapper) slack_structs.MessageWrapper {
+
+	message := slack_structs.Message{
+		Text: eventWrapper.Event.Text,
+		Ts:   eventWrapper.Event.Ts,
+	}
+
 	messageWrapper := slack_structs.MessageWrapper{
-		Token: secrets.BotToken,
-		Ok: true,
-		Ts: eventPacket.Event.Ts,
+		Token:   secrets.BotToken,
+		Ok:      true,
+		Ts:      eventWrapper.Event.Ts,
 		Message: message,
-		Channel: eventPacket.Event.Channel,
+		Channel: eventWrapper.Event.Channel,
 	}
 
 	return messageWrapper
